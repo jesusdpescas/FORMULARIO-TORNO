@@ -434,60 +434,60 @@ body {
   </div>
 </div>
 
-<!-- TAPAS -->
+<!-- TAPAS MECANIZADAS -->
 <div class="cat-wrap" style="margin-bottom:14px">
-  <button class="cat-btn" id="catBtn_TAPAS" onclick="toggleCat('TAPAS')">
-    <span>TAPAS</span>
+  <button class="cat-btn" id="catBtn_TAPAS_MEC" onclick="toggleCat('TAPAS_MEC')">
+    <span>TAPAS_MEC</span>
     <span class="cat-right">
-      <span class="cat-count" id="catCount_TAPAS">0</span>
+      <span class="cat-count" id="catCount_TAPAS_MEC">0</span>
       <span class="cat-arrow">▾</span>
     </span>
   </button>
-  <div class="cat-body" id="catBody_TAPAS">
+  <div class="cat-body" id="catBody_TAPAS_MEC">
     <div class="radio-qty-display">
-      <div class="big-num" id="radioNum_TAPAS">0</div>
-      <div class="big-label">Tapas</div>
+      <div class="big-num" id="radioNum_TAPAS_MEC">0</div>
+      <div class="big-label">Tapas_MEC</div>
     </div>
     <div class="grid-label">Selecciona la cantidad</div>
-    <div class="cavity-grid" id="radioGrid_TAPAS"></div>
+    <div class="cavity-grid" id="radioGrid_TAPAS_MEC"></div>
   </div>
 </div>
 
-<!-- BOQUILLERAS MECANIZADAS -->
+<!-- TAPAS SOLDADAS -->
 <div class="cat-wrap" style="margin-bottom:14px">
-  <button class="cat-btn" id="catBtn_BOQUILLERAS_MEC" onclick="toggleCat('BOQUILLERAS_MEC')">
-    <span>BOQUILLERAS MECANIZADAS</span>
+  <button class="cat-btn" id="catBtn_TAPAS_SOL" onclick="toggleCat('TAPAS_SOL')">
+    <span>TAPAS SOLDADAS</span>
     <span class="cat-right">
-      <span class="cat-count" id="catCount_BOQUILLERAS_MEC">0</span>
+      <span class="cat-count" id="catCount_TAPAS_SOL">0</span>
       <span class="cat-arrow">▾</span>
     </span>
   </button>
-  <div class="cat-body" id="catBody_BOQUILLERAS_MEC">
+  <div class="cat-body" id="catBody_TAPAS_SOL">
     <div class="radio-qty-display">
-      <div class="big-num" id="radioNum_BOQUILLERAS_MEC">0</div>
+      <div class="big-num" id="radioNum_TAPAS_SOL">0</div>
       <div class="big-label">Mecanizadas</div>
     </div>
     <div class="grid-label">Selecciona la cantidad</div>
-    <div class="cavity-grid" id="radioGrid_BOQUILLERAS_MEC"></div>
+    <div class="cavity-grid" id="radioGrid_TAPAS_SOL"></div>
   </div>
 </div>
 
-<!-- BOQUILLERAS SOLDADAS -->
+<!-- BOQUILLERAS-->
 <div class="cat-wrap" style="margin-bottom:14px">
-  <button class="cat-btn" id="catBtn_BOQUILLERAS_SOL" onclick="toggleCat('BOQUILLERAS_SOL')">
-    <span>BOQUILLERAS SOLDADAS</span>
+  <button class="cat-btn" id="catBtn_BOQUILLERAS" onclick="toggleCat('BOQUILLERAS')">
+    <span>BOQUILLERAS</span>
     <span class="cat-right">
-      <span class="cat-count" id="catCount_BOQUILLERAS_SOL">0</span>
+      <span class="cat-count" id="catCount_BOQUILLERAS">0</span>
       <span class="cat-arrow">▾</span>
     </span>
   </button>
-  <div class="cat-body" id="catBody_BOQUILLERAS_SOL">
+  <div class="cat-body" id="catBody_BOQUILLERAS">
     <div class="radio-qty-display">
-      <div class="big-num" id="radioNum_BOQUILLERAS_SOL">0</div>
+      <div class="big-num" id="radioNum_BOQUILLERAS">0</div>
       <div class="big-label">Soldadas</div>
     </div>
     <div class="grid-label">Selecciona la cantidad</div>
-    <div class="cavity-grid" id="radioGrid_BOQUILLERAS_SOL"></div>
+    <div class="cavity-grid" id="radioGrid_BOQUILLERAS"></div>
   </div>
 </div>
 
@@ -536,7 +536,7 @@ const CAT_SUBS = {
 };
 
 let refs = { MOLDES:[], PREMOLDES:[] };
-let radioVals = { ANILLOS:0, TAPAS:0, BOQUILLERAS_MEC:0, BOQUILLERAS_SOL:0 };
+let radioVals = { ANILLOS:0, TAPAS_MEC:0, TAPAS_SOL:0, BOQUILLERAS:0 };
 let refIdCtr = 0;
 let draftTimer = null;
 let globalCols = 10;
@@ -547,9 +547,9 @@ window.onload = () => {
   document.getElementById('fecha').valueAsDate = new Date();
   buildSummary();
   buildRadioGrid('ANILLOS');
-  buildRadioGrid('TAPAS');
-  buildRadioGrid('BOQUILLERAS_MEC');
-  buildRadioGrid('BOQUILLERAS_SOL');
+  buildRadioGrid('TAPAS_MEC');
+  buildRadioGrid('TAPAS_SOL');
+  buildRadioGrid('BOQUILLERAS');
   loadDraft();
 };
 
@@ -577,7 +577,7 @@ function buildSummary() {
       ).join('');
     g.appendChild(d);
   });
-  ['ANILLOS','TAPAS','BOQUILLERAS_MEC','BOQUILLERAS_SOL'].forEach(cat => {
+  ['ANILLOS','TAPAS_MEC','TAPAS_SOL','BOQUILLERAS'].forEach(cat => {
     const d = document.createElement('div');
     d.className = 'sum-single';
     d.innerHTML = `<span class="k">${cat}</span><span class="v" id="sumVal_${cat}">0</span>`;
@@ -602,7 +602,7 @@ function recalc() {
     const cc = document.getElementById('catCount_' + cat);
     if (cc) cc.textContent = total;
   });
-  ['ANILLOS','TAPAS','BOQUILLERAS_MEC','BOQUILLERAS_SOL'].forEach(cat => {
+  ['ANILLOS','TAPAS_MEC','TAPAS_SOL','BOQUILLERAS'].forEach(cat => {
     const v = radioVals[cat];
     const sv = document.getElementById('sumVal_' + cat);
     if (sv) sv.textContent = v;
@@ -771,7 +771,7 @@ function setGlobalCols(cols, btn) {
     });
   });
   // Update radio grids
-  ['ANILLOS','TAPAS','BOQUILLERAS_MEC','BOQUILLERAS_SOL'].forEach(cat => {
+  ['ANILLOS','TAPAS_MEC','TAPAS_SOL','BOQUILLERAS'].forEach(cat => {
     const grid = document.getElementById('radioGrid_' + cat);
     if (grid) grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
   });
@@ -786,7 +786,7 @@ function setActiveColor(col) {
       grid.querySelectorAll('.cell.on').forEach(c => { c.style.background = col; c.style.borderColor = col; });
     });
   });
-  ['ANILLOS','TAPAS','BOQUILLERAS_MEC','BOQUILLERAS_SOL'].forEach(cat => {
+  ['ANILLOS','TAPAS_MEC','TAPAS_SOL','BOQUILLERAS'].forEach(cat => {
     if (radioVals[cat] > 0) {
       const c = document.getElementById(`rc_${cat}_${radioVals[cat]}`);
       if (c) { c.style.background = col; c.style.borderColor = col; }
@@ -803,7 +803,7 @@ function setInactiveColor(col) {
       grid.querySelectorAll('.cell:not(.on)').forEach(c => { c.style.background = col; });
     });
   });
-  ['ANILLOS','TAPAS','BOQUILLERAS_MEC','BOQUILLERAS_SOL'].forEach(cat => {
+  ['ANILLOS','TAPAS_MEC','TAPAS_SOL','BOQUILLERAS'].forEach(cat => {
     const grid = document.getElementById('radioGrid_' + cat);
     if (!grid) return;
     grid.querySelectorAll('.cell:not(.radio-on)').forEach(c => { c.style.background = col; });
@@ -823,9 +823,9 @@ function resetSettings() {
   // Rebuild all grids
   ['MOLDES','PREMOLDES'].forEach(cat => refs[cat].forEach(r => buildMultiGrid(cat, r.id)));
   buildRadioGrid('ANILLOS');     restoreRadio('ANILLOS',     radioVals.ANILLOS);
-  buildRadioGrid('TAPAS');       restoreRadio('TAPAS',       radioVals.TAPAS);
-  buildRadioGrid('BOQUILLERAS_MEC'); restoreRadio('BOQUILLERAS_MEC', radioVals.BOQUILLERAS_MEC);
-  buildRadioGrid('BOQUILLERAS_SOL'); restoreRadio('BOQUILLERAS_SOL', radioVals.BOQUILLERAS_SOL);
+  buildRadioGrid('TAPAS_MEC');       restoreRadio('TAPAS_MEC',       radioVals.TAPAS_MEC);
+  buildRadioGrid('TAPAS_SOL'); restoreRadio('TAPAS_SOL', radioVals.TAPAS_SOL);
+  buildRadioGrid('BOQUILLERAS'); restoreRadio('BOQUILLERAS', radioVals.BOQUILLERAS);
 }
 
 function updateCount(cat, id) {
@@ -890,9 +890,9 @@ function loadDraft() {
     if (d.nombre) document.getElementById('nombre').value = d.nombre;
     if (d.radioVals) {
       restoreRadio('ANILLOS', d.radioVals.ANILLOS||0);
-      restoreRadio('TAPAS', d.radioVals.TAPAS||0);
-      restoreRadio('BOQUILLERAS_MEC', d.radioVals.BOQUILLERAS_MEC||0);
-      restoreRadio('BOQUILLERAS_SOL', d.radioVals.BOQUILLERAS_SOL||0);
+      restoreRadio('TAPAS_MEC', d.radioVals.TAPAS_MEC||0);
+      restoreRadio('TAPAS_SOL', d.radioVals.TAPAS_SOL||0);
+      restoreRadio('BOQUILLERAS', d.radioVals.BOQUILLERAS||0);
     }
     if (d.refs) {
       ['MOLDES','PREMOLDES'].forEach(cat => {
@@ -915,7 +915,7 @@ function clearAll(silent = false) {
   ['MOLDES','PREMOLDES'].forEach(cat => { const c = document.getElementById('refs_'+cat); if(c) c.innerHTML=''; });
   document.getElementById('fecha').valueAsDate = new Date();
   document.getElementById('nombre').value = '';
-  restoreRadio('ANILLOS', 0); restoreRadio('TAPAS', 0); restoreRadio('BOQUILLERAS_MEC', 0); restoreRadio('BOQUILLERAS_SOL', 0);
+  restoreRadio('ANILLOS', 0); restoreRadio('TAPAS_MEC', 0); restoreRadio('TAPAS_SOL', 0); restoreRadio('BOQUILLERAS', 0);
   localStorage.removeItem(DRAFT_KEY);
   document.getElementById('draftBanner').classList.add('hidden');
   recalc();
@@ -935,7 +935,7 @@ function submitForm() {
     });
   });
 
-  const payload = { FECHA:fecha, SECTOR:'TORNO', NOMBRE:nombre, ...sub, ANILLOS:radioVals.ANILLOS, TAPAS:radioVals.TAPAS, BOQUILLERAS_MECANIZADAS:radioVals.BOQUILLERAS_MEC, BOQUILLERAS_SOLDADAS:radioVals.BOQUILLERAS_SOL };
+  const payload = { FECHA:fecha, SECTOR:'TORNO', NOMBRE:nombre, ...sub, ANILLOS:radioVals.ANILLOS, TAPAS_MEC:radioVals.TAPAS_MEC, TAPAS_SOL:radioVals.TAPAS_MEC, BOQUILLERAS:radioVals.BOQUILLERAS };
 
   let idx = 1;
   ['MOLDES','PREMOLDES'].forEach(cat => {
